@@ -1,0 +1,70 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:DirectSMS.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:DirectSMS.Models"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DirectSMS.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="DirectSMS">
+
+
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+        to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*" ShowGridLines="True">
+        <!-- 알람 마스터 -->
+        <Border Grid.Column="0" Grid.Row="0" Background="#E6C8A1" Padding="5">
+            <GroupBox Header="Alarm Master">
+                <StackPanel Margin="0">
+                    <DataGrid ItemsSource="{Binding Targets}"
+                              AutoGenerateColumns="False"
+                              CanUserResizeColumns="True"
+                              GridLinesVisibility="All"
+                              BorderThickness="1" BorderBrush="Gray"
+                              Margin="10">
+                        <DataGrid.Columns>
+                            <!-- Binding 경로(Path)는 SmsTarget 클래스의 프로퍼티 이름과 일치해야 함 -->
+                            <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" x:DataType="models:SmsTarget"/>
+                            <DataGridTextColumn Header="전화번호" Binding="{Binding PhoneNumber}" Width="*" x:DataType="models:SmsTarget"/>
+                            <DataGridTextColumn Header="상태" Binding="{Binding Status}" Width="80" x:DataType="models:SmsTarget"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </GroupBox>
+
+        </Border>
+
+        <!-- 알람 발생 현황 -->
+        <Border Grid.Column="1" Grid.Row="0" Background="#52BE5B">
+            <TextBlock Text="알람 발생 현황" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </Border>
+
+        <!-- 그룹 -->
+        <Border Grid.Column="0" Grid.Row="1" Background="#D0E655">
+            <TextBlock Text="그룹" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </Border>
+
+        <!-- SMS 발송 현황 -->
+        <Border Grid.Column="1" Grid.Row="1" Background="#D0E655">
+            <TextBlock Text="SMS 발송 현황" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </Border>
+
+        <!-- 수신자 -->
+        <Border Grid.Column="0" Grid.Row="2" Background="#6455E6">
+            <TextBlock Text="수신자" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </Border>
+
+        <!-- Setting -->
+        <Border Grid.Column="1" Grid.Row="2" Background="#E65585">
+            <TextBlock Text="Setting" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </Border>
+    </Grid>
+
+</Window>
